@@ -27,3 +27,10 @@
 .dart_tool/
 .packages
 build/
+
+# Flutter Version Manager
+.fvm/
+
+
+# VS Code
+.vscode
