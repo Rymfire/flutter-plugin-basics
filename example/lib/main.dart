@@ -17,6 +17,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   String _platformVersion = 'Unknown';
+  Color _backgroundColor = Colors.white;
 
   @override
   void initState() {
@@ -30,8 +31,8 @@ class _MyAppState extends State<MyApp> {
     // Platform messages may fail, so we use a try/catch PlatformException.
     // We also handle the message potentially returning null.
     try {
-      platformVersion =
-          await FlutterPluginsBasics.platformVersion ?? 'Unknown platform version';
+      platformVersion = await FlutterPluginsBasics.platformVersion ??
+          'Unknown platform version';
     } on PlatformException {
       platformVersion = 'Failed to get platform version.';
     }
@@ -53,8 +54,18 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: const Text('Plugin example app'),
         ),
+        backgroundColor: _backgroundColor,
         body: Center(
           child: Text('Running on: $_platformVersion\n'),
+        ),
+        floatingActionButton: FloatingActionButton(
+          child: const Icon(Icons.palette),
+          onPressed: () async {
+            final Color newColor = await FlutterPluginsBasics.generateColor;
+            setState(() {
+              _backgroundColor = newColor;
+            });
+          },
         ),
       ),
     );
